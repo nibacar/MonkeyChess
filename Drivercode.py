@@ -12,9 +12,9 @@ arraycolumns =[[GPIO.input(18),GPIO.input(16)]]
 try:
     while True:
         for i in outputs:
-            GPIO.output(outputs[i], GPIO.HIGH)
+            GPIO.output(i, GPIO.HIGH)
             for j in inputs:
-                if GPIO.input(i) == 0:
+                if GPIO.input(j) == 0:
                     print("Magnet is on row:" + i + " and column: " + j)
 
 except KeyboardInterrupt:
