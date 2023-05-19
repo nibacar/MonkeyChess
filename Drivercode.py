@@ -15,7 +15,7 @@ try:
             GPIO.output(i, GPIO.HIGH)
             for j in inputs:
                 if GPIO.input(j) == 0:
-                    print("Magnet is on row:" + i + " and column: " + j)
+                    print("Magnet is on row:" + str(i) + " and column: " + str(j))
             GPIO.output(outputs, GPIO.LOW)
 
 except KeyboardInterrupt:
