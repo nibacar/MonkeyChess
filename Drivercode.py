@@ -11,7 +11,7 @@ try:
     while True:
         arrayrows = [[GPIO.output(15, GPIO.LOW),GPIO.output(13, GPIO.LOW)]]
         arraycolumns =[[GPIO.input(18),GPIO.input(16)]]
-        print("Magnet is on row:" + arrayrows.index(0)+1 + "\n and column: " + arraycolumns.index(0)+1)
+        print("Magnet is on row:" + " and column: " + arraycolumns.index(0)+1)
 
 except KeyboardInterrupt:
     GPIO.cleanup()
