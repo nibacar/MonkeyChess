@@ -1,17 +1,21 @@
 import time, sys
 import RPi. GPIO as GPIO
 
+outputs = [15, 13]
+inputs = [18, 16]
 GPIO.setwarnings(False)
 GPIO.setmode (GPIO.BOARD)
-GPIO.setup(15, GPIO.OUT)
-GPIO.setup(13, GPIO.OUT)
-GPIO.setup(18, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-GPIO.setup(16, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(outputs, GPIO.OUT)
+GPIO.setup(inputs, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+arrayrows = [[GPIO.output(15, GPIO.LOW),GPIO.output(13, GPIO.LOW)]]
+arraycolumns =[[GPIO.input(18),GPIO.input(16)]]
 try:
     while True:
-        arrayrows = [[GPIO.output(15, GPIO.LOW),GPIO.output(13, GPIO.LOW)]]
-        arraycolumns =[[GPIO.input(18),GPIO.input(16)]]
-        print("Magnet is on row:" + " and column: " + arraycolumns.index(0)+1)
+        for i in outputs:
+            GPIO.output(outputs[i], GPIO.HIGH)
+            for j in inputs:
+                if GPIO.input(i) == 0:
+                    print("Magnet is on row:" + i + " and column: " + j)
 
 except KeyboardInterrupt:
     GPIO.cleanup()
