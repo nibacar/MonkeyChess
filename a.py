@@ -10,12 +10,8 @@ GPIO.setwarnings(False)
 GPIO.setmode (GPIO.BOARD)
 
 # Set up GPIO pins for rows as inputs with pull-up resistors
-for row_pin in row_pins:
-    GPIO.setup(row_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-# Set up GPIO pins for columns as outputs
-for col_pin in col_pins:
-    GPIO.setup(col_pin, GPIO.OUT)
+GPIO.setup(row_pins, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(col_pins, GPIO.OUT)
 
 def detect_magnets():
     magnets = []
