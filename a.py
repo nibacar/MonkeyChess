@@ -2,8 +2,8 @@ import RPi.GPIO as GPIO
 import time
 
 # Define the GPIO pins for rows and columns
-row_pins = [3, 5, 7, 11]  # Example row GPIO pins
-col_pins = [23, 29, 31, 33]  # Example column GPIO pins
+row_pins = [16, 15, 13, 11]  # Example row GPIO pins
+col_pins = [36, 31, 29, 18]  # Example column GPIO pins
 
 # Set up GPIO mode
 GPIO.setwarnings(False)
@@ -42,7 +42,7 @@ try:
         if magnets:
             print("Magnets detected at:")
             for magnet in magnets:
-                print(f"Row: {magnet[0]}, Column: {magnet[1]}")
+                print(f"Row: {magnet[0]+1}, Column: {magnet[1]+1}")
         else:
             print("No magnets detected.")
 
