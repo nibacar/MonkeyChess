@@ -5,6 +5,7 @@ import time
 row_pins = [16, 15, 13, 11]  # Example row GPIO pins
 col_pins = [36, 31, 29, 18]  # Example column GPIO pins
 
+
 # Set up GPIO mode
 GPIO.setmode(GPIO.BCM)
 
