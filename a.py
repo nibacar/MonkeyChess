@@ -21,6 +21,7 @@ def detect_magnets():
     for col_pin in col_pins:
         # Set the current column pin to LOW
         GPIO.output(col_pin, GPIO.LOW)
+        time.sleep(0.01)  # Adjust the delay here if needed
 
         # Read the state of all row pins
         states = [GPIO.input(row_pin) for row_pin in row_pins]
@@ -49,3 +50,10 @@ try:
 except KeyboardInterrupt:
     # Clean up GPIO on keyboard interrupt
     GPIO.cleanup()
+
+
+
+
+
+
+
