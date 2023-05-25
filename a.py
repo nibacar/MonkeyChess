@@ -9,9 +9,14 @@ col_pins = [36, 31, 29, 18]  # Example column GPIO pins
 GPIO.setwarnings(False)
 GPIO.setmode (GPIO.BOARD)
 
+
 # Set up GPIO pins for rows as inputs with pull-up resistors
-GPIO.setup(row_pins, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(col_pins, GPIO.OUT)
+for row_pin in row_pins:
+    GPIO.setup(row_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+# Set up GPIO pins for columns as outputs
+for col_pin in col_pins:
+    GPIO.setup(col_pin, GPIO.OUT)
 
 def detect_magnets():
     magnets = []
@@ -36,7 +41,6 @@ def detect_magnets():
 
     return magnets
 
-
 try:
     while True:
         input("Press Enter to detect magnets...")
@@ -44,7 +48,7 @@ try:
         if magnets:
             print("Magnets detected at:")
             for magnet in magnets:
-                print(f"Row: {magnet[0]+1}, Column: {magnet[1]+1}")
+                print(f"Row: {magnet[0]}, Column: {magnet[1]}")
         else:
             print("No magnets detected.")
 
