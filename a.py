@@ -3,33 +3,32 @@ import time
 
 # Define the GPIO pins for rows and columns
 row_pins = [16, 15, 13, 11]  # Example row GPIO pins
-col_pins = [36, 31, 29, 18]   # Example column GPIO pins
+col_pins = [36, 31, 29, 18]  # Example column GPIO pins
 
 # Set up GPIO mode
-GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setmode (GPIO.BOARD)
 
 # Set up GPIO pins for rows as inputs with pull-up resistors
-for row_pin in row_pins:
-    GPIO.setup(row_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-# Set up GPIO pins for columns as outputs
-for col_pin in col_pins:
-    GPIO.setup(col_pin, GPIO.OUT)
+GPIO.setup(row_pins, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(col_pins, GPIO.OUT)
 
 def detect_magnets():
     magnets = []
     for col_pin in col_pins:
         # Set the current column pin to LOW
         GPIO.output(col_pin, GPIO.LOW)
-        time.sleep(0.01)  # Adjust the delay here if needed
 
-        # Read the state of all row pins
-        states = [GPIO.input(row_pin) for row_pin in row_pins]
+        for row_pin in row_pins:
+            # Read the state of the current row pin
+            state = GPIO.input(row_pin)
 
-        # Check if magnets are detected in any row
-        for row, state in enumerate(states):
+            # Check if a magnet is detected
             if state == GPIO.LOW:
-                magnets.append((row, col_pins.index(col_pin)))
+                # Magnet detected, get the row and column
+                row = row_pins.index(row_pin)
+                col = col_pins.index(col_pin)
+                magnets.append((row, col))
 
         # Reset the current column pin to HIGH
         GPIO.output(col_pin, GPIO.HIGH)
@@ -43,17 +42,10 @@ try:
         if magnets:
             print("Magnets detected at:")
             for magnet in magnets:
-                print(f"Row: {magnet[0]}, Column: {magnet[1]}")
+                print(f"Row: {magnet[0]+1}, Column: {magnet[1]+1}")
         else:
             print("No magnets detected.")
 
 except KeyboardInterrupt:
     # Clean up GPIO on keyboard interrupt
     GPIO.cleanup()
-
-
-
-
-
-
-
