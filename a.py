@@ -2,8 +2,8 @@ import RPi.GPIO as GPIO
 import time
 
 # Define the GPIO pins for rows and columns
-row_pins = [2, 3, 4, 17]  # Example row GPIO pins
-col_pins = [11, 5, 6, 13]  # Example column GPIO pins
+row_pins = [16, 15, 13, 11]  # Example row GPIO pins
+col_pins = [36, 31, 29, 18]   # Example column GPIO pins
 
 # Set up GPIO mode
 GPIO.setmode(GPIO.BCM)
