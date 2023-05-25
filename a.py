@@ -43,7 +43,7 @@ try:
         if magnets:
             print("Magnets detected at:")
             for magnet in magnets:
-                print(f"Row: {magnet[0]+1}, Column: {magnet[1]+1}")
+                print(f"Row: {magnet[0]}, Column: {magnet[1]}")
         else:
             print("No magnets detected.")
 
