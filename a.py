@@ -5,26 +5,23 @@ import time
 row_pins = [16, 15, 13, 11]  # Example row GPIO pins
 col_pins = [36, 31, 29, 18]  # Example column GPIO pins
 
-
 # Set up GPIO mode
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
 # Set up GPIO pins for rows as inputs with pull-up resistors
-GPIO.setup(row_pins, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-# Set up GPIO pins for columns as outputs
-GPIO.setup(col_pins, GPIO.OUT)
+for row_pin in row_pins:
+    GPIO.setup(row_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def detect_magnets():
     magnets = []
     for col_pin in col_pins:
-        # Set the current column pin to LOW
-        GPIO.output(col_pin, GPIO.LOW)
+        GPIO.setup(col_pin, GPIO.OUT)  # Set the current column pin as output
+        GPIO.output(col_pin, GPIO.LOW)  # Set the current column pin to LOW
         time.sleep(0.01)  # Adjust the delay here if needed
 
         for row_pin in row_pins:
-            # Read the state of the current row pin
-            state = GPIO.input(row_pin)
+            state = GPIO.input(row_pin)  # Read the state of the current row pin
 
             # Check if a magnet is detected
             if state == GPIO.LOW:
@@ -33,8 +30,7 @@ def detect_magnets():
                 col = col_pins.index(col_pin)
                 magnets.append((row, col))
 
-        # Reset the current column pin to HIGH
-        GPIO.output(col_pin, GPIO.HIGH)
+        GPIO.setup(col_pin, GPIO.IN)  # Reset the current column pin as input
 
     return magnets
 
